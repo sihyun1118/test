@@ -80,3 +80,103 @@ def mingamdo_design(design):
 #     df_final_num = df_final.iloc[:, :-2]
 #
 #     return df_final, df_final_num
+
+
+dat_file = glob.glob('C:/Users/sihyun/Desktop/빅데이터 센터/세코닉스/data/DAT/SN084JA_SEKO_0601_DAT/SN084JA_SEKO_TH_210601_N2_13#2 _8.8.8.8.8.8_10.5.5.5.5.11_26(6).24(5).30.30.#5 465.30_0.180.180.90.0.90.dat')
+def make_answer_sheet(dat_file):
+
+    stock = pd.read_csv('spacer_stock.csv', index_col=0)
+    spacer_list = ['SP1', 'SP2', 'SP3', 'SP4', 'SP5']
+    spacervalue_list_int = [-2, -4, -6, 2, 4, 6]
+
+    # stock.index[0]
+    # DAT 파일명에서 괄호 없애기
+    spacer_thi_list_v1 = dat_file[0].split(os.sep)[-1].split('_')[-2].split('.')
+    spacer_thi_list_v2 = []
+    for i in range(len(spacer_thi_list_v1)):
+        if '(' in spacer_thi_list_v1[i]:
+            temp = spacer_thi_list_v1[i].replace(spacer_thi_list_v1[i], spacer_thi_list_v1[i][:2])
+            spacer_thi_list_v2.append(temp)
+        else:
+            spacer_thi_list_v2.append(spacer_thi_list_v1[i])
+    sp_list = spacer_thi_list_v2.copy()
+    del sp_list[4]
+    # Spacer int로 type 변경
+    for i in range(5):
+        sp_list[i] = int(sp_list[i])
+
+    true_sp_list_all =[]
+    for i in range(len(sp_list)):
+        check_stock = []
+        # 각 Spacer에 조정값 더하고 빼기
+        for j in range(len(spacervalue_list_int)):
+            check_stock.append(sp_list[i] + spacervalue_list_int[j])
+        # 각 조정값이 반영된 Spacer의 재고 확인
+        true_sp_list = []
+        for k in range(len(check_stock)):
+            try:
+                if stock.loc[spacer_list[i], str(check_stock[k])] != 0:
+                    true_sp_list.append(spacervalue_list_int[k])
+                else:
+                    pass
+            except:
+                pass
+        true_sp_list_all.append(true_sp_list)
+
+
+
+
+########################################################################################################################
+
+
+    sp1_list = []
+    for i in range(len(check_stock)):
+        try:
+            if stock.loc[spacer_list[i], str(check_stock[i])] != 0:
+                sp1_list.append(spacervalue_list_int[i])
+            else:
+                pass
+        except:
+            pass
+
+    sp2_list = []
+    for i in range(len(check_stock)):
+        try:
+            if stock.loc['sp2', str(check_stock[i])] != 0:
+                sp2_list.append(spacervalue_list_int[i])
+            else:
+                pass
+        except:
+            pass
+check_stock
+    sp3_list = []
+    for i in range(len(check_stock)):
+        try:
+            if stock.loc['sp3', str(check_stock[i])] != 0:
+                sp3_list.append(spacervalue_list_int[i])
+            else:
+                pass
+        except:
+            pass
+
+    sp4_list = []
+    for i in range(len(check_stock)):
+        try:
+            if stock.loc['sp4', str(check_stock[i])] != 0:
+                sp4_list.append(spacervalue_list_int[i])
+            else:
+                pass
+        except:
+            pass
+
+    sp5_list = []
+    for i in range(len(check_stock)):
+        try:
+            if stock.loc['sp5', str(check_stock[i])] != 0:
+                sp5_list.append(spacervalue_list_int[i])
+            else:
+                pass
+        except:
+            pass
+
+stock.loc['sp2', str(check_stock[1])] != 0
